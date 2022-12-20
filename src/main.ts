@@ -8,9 +8,13 @@ const UserSchema = z.object({
   age: z.number().gt(0).lt(10000000),
   age2: z.bigint(),
   age3: z.bigint(),
+  age4: z.number().optional().default(Math.random),
   // nullish lets you use both "null" and "undefined"
   birthday: z.date().optional().nullish(),
   isProgrammer: z.boolean().nullable().default(false),
+  hobby: z.enum(["Fishing","Shooting","Running"]),
+  // in this case must always be "true"
+  aLiteralTrue: z.literal(true),
   // null is a primitive value
   test: z.null().optional(),
   // undefined is a global property & default for types or a primitive value
@@ -26,9 +30,22 @@ const UserSchema = z.object({
 
 type User = z.infer<typeof UserSchema>;
 
-const user = {username: "123", age:1000, age2:9007199254740991n, age3:12n, brithday: new Date(), isProgrammer:true}
+const user = {username: "123", age:1000, age2:9007199254740991n, age3:12n, brithday: new Date(), 
+isProgrammer:true, aLiteralTrue: true, hobby: "Running"}
 
 console.log(UserSchema.parse(user))
 // safeParse gives a true or false response if succesful, handy for form validation
 console.log(UserSchema.safeParse(user))
 console.log(UserSchema.safeParse(user).success)
+
+
+enum Hobbies{
+Reading = "Reading", Writing = "Writing",Singing = "Singing",
+}
+
+const UserSchema2 = z.object({
+  hobby: z.nativeEnum(Hobbies)
+})
+
+const user2 = {hobby: Hobbies.Singing}
+console.log(UserSchema2.safeParse(user2).success)
