@@ -8,8 +8,9 @@ const UserSchema = z.object({
   age: z.number().gt(0).lt(10000000),
   age2: z.bigint(),
   age3: z.bigint(),
-  birthday: z.date().optional(),
-  isProgrammer: z.boolean(),
+  // nullish lets you use both "null" and "undefined"
+  birthday: z.date().optional().nullish(),
+  isProgrammer: z.boolean().nullable(),
   // null is a primitive value
   test: z.null().optional(),
   // undefined is a global property & default for types or a primitive value
