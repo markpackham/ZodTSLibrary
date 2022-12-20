@@ -53,3 +53,7 @@ const UserSchema2 = z.object({
 
 const user2 = {hobby: Hobbies.Singing, hobby2: "Darts"}
 console.log(UserSchema2.safeParse(user2).success)
+console.log(UserSchema2.shape)
+console.log(UserSchema2.shape.hobby)
+// a partial makes everything optional
+console.log(UserSchema2.partial().parse(user2))
