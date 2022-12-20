@@ -68,7 +68,7 @@ console.log(UserSchema2.partial().parse(user2))
 const UserSchema3 = z.object({
   name: z.string(),
   age: z.number()
-}).pick({name:true})
+}).omit({age:true}).pick({name:true})
 
 const user3 = {name: "Tim"}
 console.log(UserSchema3.safeParse(user3).success)
