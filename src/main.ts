@@ -89,3 +89,18 @@ const UserSchema5 = z.object({
 
 const user5 = {name: "Johnny", age: 5, username: "short-circuit"}
 console.log(UserSchema5.safeParse(user5).success)
+
+// passthrough is used so we can add additional keys in the object user6
+// otherwise additional stuff like "name" would be ignored when parased
+const UserSchema6 = z.object({
+  username: z.string()
+}).passthrough()
+// if we want to throw errors when additonal keys are added to the object
+// use .strict() which does the opposite to passthrough()
+
+const user6 = {
+  username: "Mr Username",
+  name: "Mr Name"
+}
+
+console.log(UserSchema6.parse(user6))
