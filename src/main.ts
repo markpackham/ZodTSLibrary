@@ -43,9 +43,13 @@ enum Hobbies{
 Reading = "Reading", Writing = "Writing",Singing = "Singing",
 }
 
+// to use an array as an enum we need to use "as const" with the array to show it won't change/read only
+const Hobbies2 = ["Swimming","Darts","Snooker","Tennis"] as const;
+
 const UserSchema2 = z.object({
-  hobby: z.nativeEnum(Hobbies)
+  hobby: z.nativeEnum(Hobbies),
+  hobby2: z.enum(Hobbies2),
 })
 
-const user2 = {hobby: Hobbies.Singing}
+const user2 = {hobby: Hobbies.Singing, hobby2: "Darts"}
 console.log(UserSchema2.safeParse(user2).success)
