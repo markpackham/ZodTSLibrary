@@ -72,3 +72,11 @@ const UserSchema3 = z.object({
 
 const user3 = {name: "Tim"}
 console.log(UserSchema3.safeParse(user3).success)
+
+const UserSchema4 = z.object({
+  name: z.string(),
+  age: z.number()
+}).deepPartial()
+
+const user4 = {name: "Jane"}
+console.log(UserSchema4.safeParse(user4).success)
