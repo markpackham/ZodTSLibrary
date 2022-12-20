@@ -104,3 +104,16 @@ const user6 = {
 }
 
 console.log(UserSchema6.parse(user6))
+
+
+const UserSchema7 = z.object({
+  friends: z.array(z.string()).nonempty()
+})
+
+// Show the type of the array
+// UserSchema7.shape.friends.element
+const user7 = {
+   friends: ["Abby","Bob","Carl"]
+}
+
+console.log(UserSchema7.parse(user7))
