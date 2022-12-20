@@ -3,13 +3,18 @@
 import {z} from "zod";
 
 const UserSchema = z.object({
-  username: z.string()
+  username: z.string(),
+  age: z.number(),
+  age2: z.bigint(),
+  birthday: z.date().optional(),
+  isProgrammer: z.boolean(),
 })
 
 type User = z.infer<typeof UserSchema>;
 
-const user = {username: "123"}
+const user = {username: "123",age:1,age2:9007199254740991n,isProgrammer:true}
 
 console.log(UserSchema.parse(user))
 // safeParse gives a true or false response if succesful, handy for form validation
 console.log(UserSchema.safeParse(user))
+console.log(UserSchema.safeParse(user).success)
