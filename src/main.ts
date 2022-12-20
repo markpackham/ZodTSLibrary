@@ -51,9 +51,24 @@ const UserSchema2 = z.object({
   hobby2: z.enum(Hobbies2),
 })
 
+
 const user2 = {hobby: Hobbies.Singing, hobby2: "Darts"}
 console.log(UserSchema2.safeParse(user2).success)
 console.log(UserSchema2.shape)
 console.log(UserSchema2.shape.hobby)
 // a partial makes everything optional
 console.log(UserSchema2.partial().parse(user2))
+
+
+// const UserSchema3 = z.object({
+//   name: z.string(),
+//   age: z.number()
+// }).partial()
+
+const UserSchema3 = z.object({
+  name: z.string(),
+  age: z.number()
+}).pick({name:true})
+
+const user3 = {name: "Tim"}
+console.log(UserSchema3.safeParse(user3).success)
