@@ -4,8 +4,8 @@ import {z} from "zod";
 
 // the default for types is "required" hence the use of "optional"
 const UserSchema = z.object({
-  username: z.string(),
-  age: z.number(),
+  username: z.string().min(1).max(1000000),
+  age: z.number().gt(0).lt(10000000),
   age2: z.bigint(),
   age3: z.bigint(),
   birthday: z.date().optional(),
@@ -25,7 +25,7 @@ const UserSchema = z.object({
 
 type User = z.infer<typeof UserSchema>;
 
-const user = {username: "123",age:1,age2:9007199254740991n,age3:12n,isProgrammer:true}
+const user = {username: "123", age:1000, age2:9007199254740991n, age3:12n, brithday: new Date(), isProgrammer:true}
 
 console.log(UserSchema.parse(user))
 // safeParse gives a true or false response if succesful, handy for form validation
