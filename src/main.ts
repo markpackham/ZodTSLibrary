@@ -107,13 +107,16 @@ console.log(UserSchema6.parse(user6))
 
 
 const UserSchema7 = z.object({
-  friends: z.array(z.string()).nonempty()
+  friends: z.array(z.string()).nonempty(),
+  coords: z.tuple([z.number(),z.number(),z.string()]).rest(z.number())
 })
 
 // Show the type of the array
 // UserSchema7.shape.friends.element
 const user7 = {
-   friends: ["Abby","Bob","Carl"]
+   friends: ["Abby","Bob","Carl"],
+   // Our tuple must be a number, number, string then any amount of numbers after that to work
+   coords: [1,2,"Hello Mr Tuple",3,4,5]
 }
 
-console.log(UserSchema7.parse(user7))
+console.log(UserSchema7.safeParse(user7).success)
