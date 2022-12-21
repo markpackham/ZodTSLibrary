@@ -175,3 +175,15 @@ console.log(SetSchema.parse(setDemo))
 const PromiseSchema = z.promise(z.string())
 const prom = Promise.resolve("abc")
 console.log(PromiseSchema.parse(prom))
+
+
+// use refine to validate a custom types like company emails
+// superRefine is an improved version of fine with low level access & more methods
+const BrandEmailSchema = z
+.string()
+.email()
+.refine(val=>val.endsWith("@someCustomEmail.com"),{
+  message: "Email just end with @someCustomEmail.com"
+})
+const email = "johnny@someCustomEmail.com";
+console.log(BrandEmailSchema.safeParse(email).success)
