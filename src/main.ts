@@ -1,6 +1,8 @@
 // Whilst Zod can be used with JS it's really aimed for use with TypeScript
 // Zod is a validation library with helpful errors & things like .infer
 import {z} from "zod";
+// Library for less ugly error messages
+import {fromZodError} from "zod-validation-error"
 
 // the default for types is "required" hence the use of "optional"
 const UserSchema = z.object({
