@@ -120,3 +120,17 @@ const user7 = {
 }
 
 console.log(UserSchema7.safeParse(user7).success)
+
+
+//union lets you use one of two types, "or" does the same job
+const UserSchema8 = z.object({
+  id: z.union([z.string(), z.number()]),
+  id2: z.string().or(z.number())
+})
+
+const user8 ={
+id: "IDNumUNIONString",
+id2: "IDNumORString"
+}
+
+console.log(UserSchema8.safeParse(user8).success)
