@@ -167,6 +167,11 @@ const stringNumMap = new Map([
 ])
 console.log(StringNumberMap.safeParse(stringNumMap).success)
 
-const SetDemo = z.set(z.string());
+const SetSchema = z.set(z.string());
 const setDemo = new Set(["I am unique","so am I","me too","snowflake here","I am unique","I am unique","I am unique"])
-console.log(SetDemo.parse(setDemo))
+console.log(SetSchema.parse(setDemo))
+
+
+const PromiseSchema = z.promise(z.string())
+const prom = Promise.resolve("abc")
+console.log(PromiseSchema.parse(prom))
