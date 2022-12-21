@@ -187,3 +187,13 @@ const BrandEmailSchema = z
 })
 const email = "johnny@someCustomEmail.com";
 console.log(BrandEmailSchema.safeParse(email).success)
+
+
+const ErrorDemo = z
+.object({
+  username: z.string().min(3,"min length must be 3")
+})
+const errorUser = {
+  username: "12"
+}
+console.log(ErrorDemo.safeParse(errorUser))
