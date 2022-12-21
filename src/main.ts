@@ -150,3 +150,37 @@ id: {status: "success", data: "hello world"}
 }
 
 console.log(UserSchema9.safeParse(user9).success)
+
+
+// use records to validate values if you don't care about keys
+const UserMap = z.record(z.string())
+
+const user10 = {
+  keyDoesNotMatter: "Some string that matters",
+  keyDoesNotMatter2: "Some string that matters",
+}
+
+console.log(UserMap.safeParse(user10).success)
+
+// if you do care about keys then include it so you have 2 params
+const UserMap2 = z.record(z.string(),z.string())
+
+const user11 = {
+  keyDoesNotMatter: "Some string that matters",
+  keyDoesNotMatter2: "Some string that matters",
+}
+
+console.log(UserMap.safeParse(user11).success)
+
+
+// maps tend to be handier than records
+const StringNumberMap = z.map(z.string(), z.number());
+
+const stringNumMap = new Map([
+  ["abc",123],
+  ["abc",123],
+  ["abc",123],
+  ["abc",123],
+])
+
+console.log(StringNumberMap.safeParse(stringNumMap).success)
