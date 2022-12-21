@@ -42,10 +42,8 @@ console.log(UserSchema.safeParse(user).success)
 enum Hobbies{
 Reading = "Reading", Writing = "Writing",Singing = "Singing",
 }
-
 // to use an array as an enum we need to use "as const" with the array to show it won't change/read only
 const Hobbies2 = ["Swimming","Darts","Snooker","Tennis"] as const;
-
 const UserSchema2 = z.object({
   hobby: z.nativeEnum(Hobbies),
   hobby2: z.enum(Hobbies2),
@@ -69,7 +67,6 @@ const UserSchema3 = z.object({
   name: z.string(),
   age: z.number()
 }).omit({age:true}).pick({name:true})
-
 const user3 = {name: "Tim"}
 console.log(UserSchema3.safeParse(user3).success)
 
@@ -77,7 +74,6 @@ const UserSchema4 = z.object({
   name: z.string(),
   age: z.number()
 }).deepPartial()
-
 const user4 = {name: "Jane"}
 console.log(UserSchema4.safeParse(user4).success)
 
@@ -86,7 +82,6 @@ console.log(UserSchema4.safeParse(user4).success)
 const UserSchema5 = z.object({
   name: z.string()
 }).extend({age: z.number()}).merge(z.object({username: z.string()}))
-
 const user5 = {name: "Johnny", age: 5, username: "short-circuit"}
 console.log(UserSchema5.safeParse(user5).success)
 
@@ -102,7 +97,6 @@ const user6 = {
   username: "Mr Username",
   name: "Mr Name"
 }
-
 console.log(UserSchema6.parse(user6))
 
 
@@ -110,7 +104,6 @@ const UserSchema7 = z.object({
   friends: z.array(z.string()).nonempty(),
   coords: z.tuple([z.number(),z.number(),z.string()]).rest(z.number())
 })
-
 // Show the type of the array
 // UserSchema7.shape.friends.element
 const user7 = {
@@ -118,7 +111,6 @@ const user7 = {
    // Our tuple must be a number, number, string then any amount of numbers after that to work
    coords: [1,2,"Hello Mr Tuple",3,4,5]
 }
-
 console.log(UserSchema7.safeParse(user7).success)
 
 
@@ -127,12 +119,10 @@ const UserSchema8 = z.object({
   id: z.union([z.string(), z.number()]),
   id2: z.string().or(z.number())
 })
-
 const user8 ={
 id: "IDNumUNIONString",
 id2: "IDNumORString"
 }
-
 console.log(UserSchema8.safeParse(user8).success)
 
 
@@ -144,43 +134,39 @@ const UserSchema9 = z.object({
     z.object({status: z.literal("failed"), data: z.instanceof(Error)}),
   ])
 })
-
 const user9 ={
 id: {status: "success", data: "hello world"}
 }
-
 console.log(UserSchema9.safeParse(user9).success)
 
 
 // use records to validate values if you don't care about keys
 const UserMap = z.record(z.string())
-
 const user10 = {
   keyDoesNotMatter: "Some string that matters",
   keyDoesNotMatter2: "Some string that matters",
 }
-
 console.log(UserMap.safeParse(user10).success)
 
 // if you do care about keys then include it so you have 2 params
 const UserMap2 = z.record(z.string(),z.string())
-
 const user11 = {
   keyDoesNotMatter: "Some string that matters",
   keyDoesNotMatter2: "Some string that matters",
 }
-
 console.log(UserMap.safeParse(user11).success)
 
 
 // maps tend to be handier than records
 const StringNumberMap = z.map(z.string(), z.number());
-
 const stringNumMap = new Map([
   ["abc",123],
   ["abc",123],
   ["abc",123],
   ["abc",123],
 ])
-
 console.log(StringNumberMap.safeParse(stringNumMap).success)
+
+const SetDemo = z.set(z.string());
+const setDemo = new Set(["I am unique","so am I","me too","snowflake here","I am unique","I am unique","I am unique"])
+console.log(SetDemo.parse(setDemo))
