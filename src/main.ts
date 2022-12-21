@@ -199,3 +199,9 @@ const errorUser = {
   username: "12"
 }
 console.log(ErrorDemo.safeParse(errorUser))
+
+const results = ErrorDemo.safeParse(errorUser)
+
+if(!results.success){
+  console.log(fromZodError(results.error))
+}
