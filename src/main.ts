@@ -134,3 +134,19 @@ id2: "IDNumORString"
 }
 
 console.log(UserSchema8.safeParse(user8).success)
+
+
+// A discriminated union is a union of object schemas that all share a particular key.
+// discriminatedUnion is good for performance
+const UserSchema9 = z.object({
+  id: z.discriminatedUnion("status",[
+    z.object({status: z.literal("success"), data: z.string()}),
+    z.object({status: z.literal("failed"), data: z.instanceof(Error)}),
+  ])
+})
+
+const user9 ={
+id: {status: "success", data: "hello world"}
+}
+
+console.log(UserSchema9.safeParse(user9).success)
